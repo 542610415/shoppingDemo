@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.dao.InventoryMapper">
+  <resultMap id="BaseResultMap" type="com.example.springbootdemo.pojo.Inventory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fk_goods_name" jdbcType="VARCHAR" property="fkGoodsName" />
+    <result column="fk_goods_id" jdbcType="BIGINT" property="fkGoodsId" />
+    <result column="fk_user_name" jdbcType="VARCHAR" property="fkUserName" />
+    <result column="fk_user_id" jdbcType="BIGINT" property="fkUserId" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="into_time" jdbcType="TIMESTAMP" property="intoTime" />
+    <result column="out_time" jdbcType="TIMESTAMP" property="outTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fk_goods_name, fk_goods_id, fk_user_name, fk_user_id, number, into_time, out_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inventory
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from inventory
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.springbootdemo.pojo.Inventory">
+    insert into inventory (id, fk_goods_name, fk_goods_id, 
+      fk_user_name, fk_user_id, number, 
+      into_time, out_time)
+    values (#{id,jdbcType=BIGINT}, #{fkGoodsName,jdbcType=VARCHAR}, #{fkGoodsId,jdbcType=BIGINT}, 
+      #{fkUserName,jdbcType=VARCHAR}, #{fkUserId,jdbcType=BIGINT}, #{number,jdbcType=INTEGER}, 
+      #{intoTime,jdbcType=TIMESTAMP}, #{outTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.springbootdemo.pojo.Inventory">
+    insert into inventory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fkGoodsName != null">
+        fk_goods_name,
+      </if>
+      <if test="fkGoodsId != null">
+        fk_goods_id,
+      </if>
+      <if test="fkUserName != null">
+        fk_user_name,
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="intoTime != null">
+        into_time,
+      </if>
+      <if test="outTime != null">
+        out_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkGoodsName != null">
+        #{fkGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="fkGoodsId != null">
+        #{fkGoodsId,jdbcType=BIGINT},
+      </if>
+      <if test="fkUserName != null">
+        #{fkUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="intoTime != null">
+        #{intoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outTime != null">
+        #{outTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.pojo.Inventory">
+    update inventory
+    <set>
+      <if test="fkGoodsName != null">
+        fk_goods_name = #{fkGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="fkGoodsId != null">
+        fk_goods_id = #{fkGoodsId,jdbcType=BIGINT},
+      </if>
+      <if test="fkUserName != null">
+        fk_user_name = #{fkUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="intoTime != null">
+        into_time = #{intoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outTime != null">
+        out_time = #{outTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.pojo.Inventory">
+    update inventory
+    set fk_goods_name = #{fkGoodsName,jdbcType=VARCHAR},
+      fk_goods_id = #{fkGoodsId,jdbcType=BIGINT},
+      fk_user_name = #{fkUserName,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      number = #{number,jdbcType=INTEGER},
+      into_time = #{intoTime,jdbcType=TIMESTAMP},
+      out_time = #{outTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
