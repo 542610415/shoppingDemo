@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.dao.SensorHistoryRecordLastMapper">
+  <resultMap id="BaseResultMap" type="com.example.springbootdemo.pojo.SensorHistoryRecordLast">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="param_id" jdbcType="BIGINT" property="paramId" />
+    <result column="his_value" jdbcType="VARCHAR" property="hisValue" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, param_id, his_value, update_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sensor_history_record_last
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sensor_history_record_last
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.springbootdemo.pojo.SensorHistoryRecordLast">
+    insert into sensor_history_record_last (id, param_id, his_value, 
+      update_time, create_time)
+    values (#{id,jdbcType=BIGINT}, #{paramId,jdbcType=BIGINT}, #{hisValue,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.springbootdemo.pojo.SensorHistoryRecordLast">
+    insert into sensor_history_record_last
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="paramId != null">
+        param_id,
+      </if>
+      <if test="hisValue != null">
+        his_value,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="paramId != null">
+        #{paramId,jdbcType=BIGINT},
+      </if>
+      <if test="hisValue != null">
+        #{hisValue,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.pojo.SensorHistoryRecordLast">
+    update sensor_history_record_last
+    <set>
+      <if test="paramId != null">
+        param_id = #{paramId,jdbcType=BIGINT},
+      </if>
+      <if test="hisValue != null">
+        his_value = #{hisValue,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.pojo.SensorHistoryRecordLast">
+    update sensor_history_record_last
+    set param_id = #{paramId,jdbcType=BIGINT},
+      his_value = #{hisValue,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from sensor_history_record_last
+  </select>
+</mapper>
