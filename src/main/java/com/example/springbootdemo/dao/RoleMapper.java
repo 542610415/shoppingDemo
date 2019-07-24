@@ -1,7 +1,9 @@
 package com.example.springbootdemo.dao;
 
 import com.example.springbootdemo.pojo.Role;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface RoleMapper {
     int deleteByPrimaryKey(Long id);
 

@@ -1,4 +1,9 @@
 package com.example.springbootdemo.service.impl;
 
-public class LoginServiceImpl {
+import com.example.springbootdemo.service.LoginService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class LoginServiceImpl implements LoginService {
+
 }

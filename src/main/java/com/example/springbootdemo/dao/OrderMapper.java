@@ -1,7 +1,9 @@
 package com.example.springbootdemo.dao;
 
 import com.example.springbootdemo.pojo.Order;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 

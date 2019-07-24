@@ -1,7 +1,9 @@
 package com.example.springbootdemo.dao;
 
 import com.example.springbootdemo.pojo.Inventory;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface InventoryMapper {
     int deleteByPrimaryKey(Long id);
 

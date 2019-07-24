@@ -1,7 +1,9 @@
 package com.example.springbootdemo.dao;
 
 import com.example.springbootdemo.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
 
