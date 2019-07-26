@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springbootdemo.dao.GoodsMapper">
-  <resultMap id="BaseResultMap" type="com.example.springbootdemo.pojo.Goods">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="fk_user_name" jdbcType="VARCHAR" property="fkUserName" />
-    <result column="fk_user_id" jdbcType="BIGINT" property="fkUserId" />
-    <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
-    <result column="discount" jdbcType="VARCHAR" property="discount" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.example.springbootdemo.pojo.Goods">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="fk_user_name" jdbcType="VARCHAR" property="fkUserName"/>
+        <result column="fk_user_id" jdbcType="BIGINT" property="fkUserId"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="cost_price" jdbcType="DECIMAL" property="costPrice"/>
+        <result column="discount" jdbcType="VARCHAR" property="discount"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, goods_name, fk_user_name, fk_user_id, price, cost_price, discount, type, status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from goods
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from goods
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.springbootdemo.pojo.Goods">
+    <insert id="insert" parameterType="com.example.springbootdemo.pojo.Goods">
     insert into goods (id, goods_name, fk_user_name, 
       fk_user_id, price, cost_price, 
       discount, type, status
@@ -35,98 +35,98 @@
       #{discount,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.springbootdemo.pojo.Goods">
-    insert into goods
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="goodsName != null">
-        goods_name,
-      </if>
-      <if test="fkUserName != null">
-        fk_user_name,
-      </if>
-      <if test="fkUserId != null">
-        fk_user_id,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="costPrice != null">
-        cost_price,
-      </if>
-      <if test="discount != null">
-        discount,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="fkUserName != null">
-        #{fkUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="fkUserId != null">
-        #{fkUserId,jdbcType=BIGINT},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="costPrice != null">
-        #{costPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="discount != null">
-        #{discount,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.pojo.Goods">
-    update goods
-    <set>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="fkUserName != null">
-        fk_user_name = #{fkUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="fkUserId != null">
-        fk_user_id = #{fkUserId,jdbcType=BIGINT},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="costPrice != null">
-        cost_price = #{costPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="discount != null">
-        discount = #{discount,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.pojo.Goods">
+    <insert id="insertSelective" parameterType="com.example.springbootdemo.pojo.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="fkUserName != null">
+                fk_user_name,
+            </if>
+            <if test="fkUserId != null">
+                fk_user_id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="costPrice != null">
+                cost_price,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="fkUserName != null">
+                #{fkUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="fkUserId != null">
+                #{fkUserId,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="costPrice != null">
+                #{costPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.pojo.Goods">
+        update goods
+        <set>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="fkUserName != null">
+                fk_user_name = #{fkUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="fkUserId != null">
+                fk_user_id = #{fkUserId,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="costPrice != null">
+                cost_price = #{costPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.pojo.Goods">
     update goods
     set goods_name = #{goodsName,jdbcType=VARCHAR},
       fk_user_name = #{fkUserName,jdbcType=VARCHAR},
@@ -138,4 +138,15 @@
       status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <!--查询所有商品信息-->
+    <select id="findAll" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+    </select>
+
+    <!--根据条件查询商品信息（名称<模糊查询>、类别、价格<区间>等）-->
+
+
 </mapper>
