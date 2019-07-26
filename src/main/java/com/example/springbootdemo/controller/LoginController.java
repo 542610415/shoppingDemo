@@ -31,6 +31,7 @@ public class LoginController {
      */
     @GetMapping("/toLogin")
     public String toLogin() {
+
         return "login/login.html";
     }
 
@@ -46,13 +47,14 @@ public class LoginController {
 
             if (!password.equals(userInfo.getPassword())) {
                 map.put("msg", "用户名或密码错误！请重新输入！");
-                return "login/login";
+                return "login/login.html";
+            }else {
+                //跳转到其他页面
+                return "index.html";
             }
-            //跳转到其他页面
-            return "index.html";
         }
         map.put("msg", "用户名或密码不能为空！");
-        return "login/login";
+        return "/login/toLogin";
     }
 
 
