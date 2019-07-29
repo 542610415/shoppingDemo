@@ -21,6 +21,7 @@ public class CommonUtil {
         redisTemplate.opsForValue().set(key,value,timeout, TimeUnit.HOURS);
 
     }
+    
 
     /**
      * redis取string

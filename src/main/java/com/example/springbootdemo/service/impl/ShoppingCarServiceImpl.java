@@ -4,14 +4,20 @@ import com.example.springbootdemo.constant.StringEnum;
 import com.example.springbootdemo.pojo.ShoppingCar;
 import com.example.springbootdemo.pojo.User;
 import com.example.springbootdemo.service.ShoppingCarService;
-import com.example.springbootdemo.util.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCarServiceImpl implements ShoppingCarService {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     @Override
@@ -21,7 +27,11 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
         User userInfo= (User) session.getAttribute(StringEnum.USERINFO.getMsg());
         //以用户信息为key，把购物车中的商品信息存入Redis
+        Map<String, Object> map = new HashMap<>();
 
+
+
+        redisTemplate.opsForHash().putAll(userInfo.getUsername(),map);
 
     }
 
