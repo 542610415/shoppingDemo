@@ -3,6 +3,7 @@ package com.example.springbootdemo.service.impl;
 import com.example.springbootdemo.dao.GoodsMapper;
 import com.example.springbootdemo.pojo.Goods;
 import com.example.springbootdemo.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
-    @Resource
+    @Autowired
     private GoodsMapper goodsMapper;
 
 
@@ -25,7 +26,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> selectGoods(Goods goods) {
-        return null;
+        List<Goods> goodsList=goodsMapper.selectGoods(goods);
+
+        return goodsList;
     }
 
     @Override

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springbootdemo.dao.GoodsMapper">
+
+    <!--返回 List<Goods>-->
     <resultMap id="BaseResultMap" type="com.example.springbootdemo.pojo.Goods">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
@@ -12,19 +14,27 @@
         <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
     </resultMap>
+
+    <!--表基本字段-->
     <sql id="Base_Column_List">
     id, goods_name, fk_user_name, fk_user_id, price, cost_price, discount, type, status
   </sql>
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from goods
         where id = #{id,jdbcType=BIGINT}
     </select>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from goods
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
+
     <insert id="insert" parameterType="com.example.springbootdemo.pojo.Goods">
     insert into goods (id, goods_name, fk_user_name, 
       fk_user_id, price, cost_price, 
@@ -35,6 +45,8 @@
       #{discount,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
       )
   </insert>
+
+
     <insert id="insertSelective" parameterType="com.example.springbootdemo.pojo.Goods">
         insert into goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -96,6 +108,8 @@
             </if>
         </trim>
     </insert>
+
+
     <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.pojo.Goods">
         update goods
         <set>
@@ -126,6 +140,8 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
+
+
     <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.pojo.Goods">
     update goods
     set goods_name = #{goodsName,jdbcType=VARCHAR},
@@ -139,14 +155,59 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+
     <!--查询所有商品信息-->
-    <select id="findAll" resultType="java.util.List">
+    <select id="findAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from goods
     </select>
 
     <!--根据条件查询商品信息（名称<模糊查询>、类别、价格<区间>等）-->
+    <select id="selectGoods" resultMap="BaseResultMap"
+            parameterType="com.example.springbootdemo.pojo.Goods">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        <where>
+            <if test="id !=null">
+                id=#{id}
+            </if>
+            <if test="goodsName != null">
+                AND goods_name=#{goodsName}
+            </if>
+            <if test="fkUserName != null">
+                AND fk_user_name=#{fkUserName}
+            </if>
+            <if test="fkUserId != null">
+                AND fk_user_id=#{fkUserId}
+            </if>
+            <if test="price != null">
+                AND price <![CDATA[ <= ]]> #{price}
+            </if>
+            <if test="costPrice != null">
+                AND cost_price=#{costPrice}
+            </if>
+            <if test="discount != null">
+                AND discount=#{discount}
+            </if>
+            <if test="type != null">
+                AND type=#{type}
+            </if>
+            <if test="status != null">
+                AND status=#{status}
+            </if>
 
+        </where>
+        <!--<trim prefix="where">-->
+        <!--<if test="id != null">-->
+        <!--id=#{id}-->
+        <!--</if>-->
+        <!--<if test="goodsName != null">-->
+        <!--AND goods_name=#{goodsName}-->
+        <!--</if>-->
+        <!--</trim>-->
+
+    </select>
 
 </mapper>

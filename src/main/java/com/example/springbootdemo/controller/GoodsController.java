@@ -2,14 +2,16 @@ package com.example.springbootdemo.controller;
 
 
 import com.example.springbootdemo.pojo.Goods;
+import com.example.springbootdemo.pojo.ResultBack;
 import com.example.springbootdemo.service.GoodsService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.Past;
 import java.util.List;
 
 @Controller
@@ -21,13 +23,36 @@ public class GoodsController {
     @Resource
     private GoodsService goodsService;
 
-    @RequestMapping("/findAll")
+    /**
+     * 查询所有商品
+     * @return
+     */
+    @GetMapping("/findAll")
     @ResponseBody
-    public List<Goods> findAll() {
+    public ResultBack findAll() {
 
         List<Goods> goodsList = goodsService.findAll();
 
-        return goodsList;
+        ResultBack resultBack = new ResultBack();
+        resultBack.setData(goodsList);
+
+        return resultBack;
+    }
+
+    /**
+     * 根据条件查询商品
+     * @return
+     */
+    @PostMapping("/select")
+    @ResponseBody
+    public ResultBack selectGoods(@RequestBody Goods goods){
+
+        List<Goods> goodsList=goodsService.selectGoods(goods);
+
+        ResultBack resultBack = new ResultBack();
+        resultBack.setData(goodsList);
+
+        return resultBack;
     }
 
 }
