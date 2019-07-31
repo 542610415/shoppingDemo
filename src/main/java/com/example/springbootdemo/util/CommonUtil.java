@@ -1,62 +1,96 @@
 package com.example.springbootdemo.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-
+import javax.servlet.http.HttpSession;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 工具类
  */
 public class CommonUtil {
-    @Autowired
-    private RedisTemplate redisTemplate;
-
     /**
-     * redis存string
+     * 实体类转Map
+     *
+     * @param object
+     * @return
      */
-    public void redisSetString(String key ,String value , Integer timeout){
-        //存字符串
-        redisTemplate.opsForValue().set(key,value,timeout, TimeUnit.HOURS);
-
-    }
-    
-
-    /**
-     * redis取string
-     */
-
-
-
-
-    /**
-     * redis删string
-     */
-
-
-
-
-    /**
-     * redis 存hash
-     */
-    public void redisSetHash(String key, Map<String, Object> map){
-        //Redis 存hash
-         redisTemplate.opsForHash().putAll(key,map);
-
+    public static Map<String, Object> entityToMap(Object object) {
+        Map<String, Object> map = new HashMap();
+        for (Field field : object.getClass().getDeclaredFields()) {
+            try {
+                boolean flag = field.isAccessible();
+                field.setAccessible(true);
+                Object o = field.get(object);
+                map.put(field.getName(), o);
+                field.setAccessible(flag);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
     }
 
+    /**
+     * Map转实体类
+     *
+     * @param map    需要初始化的数据，key字段必须与实体类的成员名字一样，否则赋值为空
+     * @param entity 需要转化成的实体类
+     * @return
+     */
+    public static <T> T mapToEntity(Map<String, Object> map, Class<T> entity) {
+        T t = null;
+        try {
+            t = entity.newInstance();
+            for (Field field : entity.getDeclaredFields()) {
+                if (map.containsKey(field.getName())) {
+                    boolean flag = field.isAccessible();
+                    field.setAccessible(true);
+                    Object object = map.get(field.getName());
+                    if (object != null && field.getType().isAssignableFrom(object.getClass())) {
+                        field.set(t, object);
+                    }
+                    field.setAccessible(flag);
+                }
+            }
+            return t;
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return t;
+    }
 
 
     /**
-     * redis 取hash
+     * 获取request对象
      */
+    public static HttpServletRequest getRequestEntity() {
 
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    }
 
+    /**
+     * 获取session
+     */
+    public static HttpSession getSession(){
+
+        return getRequestEntity().getSession();
+    }
 
 
     /**
-     * Redis 删除 hash
+     * 获取session值
      */
+    public static Object getSessionValue(String key){
+
+        return getRequestEntity().getSession().getAttribute(key);
+    }
 
 }
